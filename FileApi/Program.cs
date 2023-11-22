@@ -1,7 +1,16 @@
+using FileApi.Data;
+using FileApi.Services;
+using Microsoft.EntityFrameworkCore;
+using System;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddDbContext<UserDbContect>(options
+    => options.UseSqlServer(builder.Configuration.GetConnectionString("Connected")));
+
+builder.Services.AddScoped<IUserService, UserService>();    
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
